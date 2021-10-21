@@ -1,0 +1,16 @@
+[
+  { "Player": "JJ Redick", "Age": 34, "PTS": 18.1, "Year": 2019 },
+  { "Player": "Sam Cassell", "Age": 34, "PTS": 19.8, "Year": 2004 },
+  { "Player": "Arvydas Sabonis", "Age": 33, "PTS": 16.0, "Year": 1998 },
+  { "Player": "Connie Dierking", "Age": 33, "PTS": 16.7, "Year": 1970 },
+  { "Player": "John Lucas", "Age": 33, "PTS": 17.5, "Year": 1987 },
+  { "Player": "Chauncey Billups", "Age": 33, "PTS": 19.5, "Year": 2010 },
+  { "Player": "Frank Brickowski", "Age": 33, "PTS": 16.9, "Year": 1993 },
+  { "Player": "Mike Newlin", "Age": 32, "PTS": 21.4, "Year": 1981 },
+  { "Player": "Bob Davies", "Age": 32, "PTS": 16.2, "Year": 1952 },
+  { "Player": "Detlef Schrempf", "Age": 32, "PTS": 19.2, "Year": 1995 },
+  { "Player": "Toni Kukoc", "Age": 32, "PTS": 19.7, "Year": 2001 },
+  { "Player": "Alex English", "Age": 32, "PTS": 29.8, "Year": 1986 },
+  { "Player": "Hakeem Olajuwon", "Age": 32, "PTS": 27.8, "Year": 1995 },
+  { "Player": "Marc Gasol", "Age": 32, "PTS": 19.5, "Year": 2017 }
+]

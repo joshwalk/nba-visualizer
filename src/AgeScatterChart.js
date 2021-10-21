@@ -1,5 +1,5 @@
 import React from "react"
-import data from "./ppg-age.json"
+import data from "./data/age_ppg.json"
 import {
   ScatterChart,
   Scatter,
@@ -49,7 +49,7 @@ const CustomTooltip = props => (
       PPG:{" "}
       {props.payload &&
         props.payload[0] != null &&
-        props.payload[0].payload.PPG}
+        props.payload[0].payload.PTS}
     </p>
   </div>
 )
@@ -68,8 +68,8 @@ export const AgeScatterChart = () => {
       />
       <YAxis
         type="number"
-        dataKey="PPG"
-        name="PPG"
+        dataKey="PTS"
+        name="PTS"
         domain={[10, 30]}
         label={{ value: "PPG", angle: -90, position: "insideLeft" }}
       />
@@ -77,7 +77,7 @@ export const AgeScatterChart = () => {
         cursor={{ strokeDasharray: "3 3" }}
         content={<CustomTooltip />}
       />
-      <Scatter name="A school" data={data} fill="#006BB6" />
+      <Scatter data={data} fill="#006BB6" />
     </ScatterChart>
   )
 }
