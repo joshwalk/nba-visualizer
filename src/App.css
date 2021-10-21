@@ -28,8 +28,6 @@ h1 {
   font-size: 72px;
   font-weight: bold;
   background: linear-gradient(to right, #006BB6 0%, #ED174C 100%); 
-  /* 437C90 */
-	/* background: linear-gradient(to right, #30CFD0 0%, #330867 100%); */
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }

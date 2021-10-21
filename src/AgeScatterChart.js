@@ -9,8 +9,6 @@ import {
   Tooltip
 } from "recharts"
 
-// { "Player": "JJ Redick", "Age": 35, "PPG": 18.1, "Year": 2019 }
-
 const CustomTooltip = props => (
   <div
     style={{
@@ -58,16 +56,7 @@ const CustomTooltip = props => (
 
 export const AgeScatterChart = () => {
   return (
-    <ScatterChart
-      width={750}
-      height={500}
-      // margin={{
-      //   top: 20,
-      //   right: 20,
-      //   bottom: 20,
-      //   left: 20
-      // }}
-    >
+    <ScatterChart width={750} height={500}>
       <CartesianGrid />
       <XAxis
         type="number"

@@ -1,6 +1,4 @@
-import logo from "./logo.svg"
 import "./App.css"
-// import Charts from "./Charts"
 import { JJLineChart } from "./JJLineChart"
 import JJ from "./jj3.jpg"
 import { AgeScatterChart } from "./AgeScatterChart"
@@ -11,7 +9,11 @@ function App() {
       <header className="App-header">
         <h1>Aging Like Wine</h1>
         <h2>An Analysis of NBA Players' Peak PPG Seasons</h2>
-        <img src={JJ} style={{ width: 750, marginTop: "2em" }} />
+        <img
+          src={JJ}
+          alt="JJ Redick"
+          style={{ width: 750, marginTop: "2em" }}
+        />
         <div className="text-body">
           <p>
             Since being drafted by the Magic in 2006, JJ Redick's career has
@@ -26,7 +28,6 @@ function App() {
       </header>
       <h2>JJ Redick Career PPG by Age</h2>
       <div className="content">
-        {/* <Charts /> */}
         <JJLineChart />
       </div>
       <div className="text-body">
