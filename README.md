@@ -5,4 +5,8 @@ See the completed project here:
 
 See Jupyter notebook `nba_season_data_processing.ipynb` for data processing and cleaning process.
 
-Data sourced from Basketball Reference. Built with React and `recharts` (d3).
+Built with:
+- Python and pandas for data processing
+- Javascript (React) & library `recharts` (d3) on frontend
+
+Data sourced from Basketball Reference.
