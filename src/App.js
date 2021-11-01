@@ -2,9 +2,10 @@ import "./App.css"
 import { JJLineChart } from "./JJLineChart"
 import JJ from "./jj3.jpg"
 import { AgeScatterChart } from "./AgeScatterChart"
+import MagicBySeason from "./magic-by-season/MagicBySeason"
 
-function App() {
-  return (
+function App({ post }) {
+  return post === "Aging Like Wine" ? (
     <div className="App">
       <header className="App-header">
         <h1>Aging Like Wine</h1>
@@ -79,6 +80,8 @@ function App() {
         </p>
       </div>
     </div>
+  ) : (
+    <MagicBySeason />
   )
 }
 
