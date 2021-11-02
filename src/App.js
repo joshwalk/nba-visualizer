@@ -3,6 +3,7 @@ import { JJLineChart } from "./JJLineChart"
 import JJ from "./jj3.jpg"
 import { AgeScatterChart } from "./AgeScatterChart"
 import MagicBySeason from "./magic-by-season/MagicBySeason"
+import ParentSize from "@visx/responsive/lib/components/ParentSize"
 
 function App({ post }) {
   return post === "Aging Like Wine" ? (
@@ -81,7 +82,9 @@ function App({ post }) {
       </div>
     </div>
   ) : (
-    <MagicBySeason />
+    <ParentSize>
+      {({ height, width }) => <MagicBySeason height={height} width={width} />}
+    </ParentSize>
   )
 }
 
