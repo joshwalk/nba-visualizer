@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { BarStackHorizontal } from "@visx/shape"
 import { SeriesPoint } from "@visx/shape/lib/types"
 import { Group } from "@visx/group"
@@ -12,6 +12,7 @@ import { withTooltip, Tooltip, defaultStyles } from "@visx/tooltip"
 import { WithTooltipProvidedProps } from "@visx/tooltip/lib/enhancers/withTooltip"
 import { LegendOrdinal } from "@visx/legend"
 import magicBySeasonData from "./data-processing/magic-by-season-pct.json"
+import Text from "@visx/text/lib/Text"
 
 const defaultMargin = { top: 40, left: 50, right: 40, bottom: 100 }
 const purple1 = "#0077C0"
@@ -25,18 +26,18 @@ const tooltipStyles = {
   color: "white"
 }
 
-const data = Object.values(magicBySeasonData).map(myObj =>
-  Object.entries(myObj)
-    .sort((a, b) => b[1] - a[1])
-    .reduce(
-      (_sortedObj, [k, v]) => ({
-        ..._sortedObj,
-        [k]: v
-      }),
-      {}
-    )
-)
-console.log({ data })
+// const data = Object.values(magicBySeasonData).map(myObj =>
+//   Object.entries(myObj)
+//     .sort((a, b) => b[1] - a[1])
+//     .reduce(
+//       (_sortedObj, [k, v]) => ({
+//         ..._sortedObj,
+//         [k]: v
+//       }),
+//       {}
+//     )
+// )
+const data = Object.values(magicBySeasonData).reverse()
 const keys = Object.keys(data[0]).filter(d => d !== "Name")
 
 // accessors
@@ -53,16 +54,16 @@ const dateScale = scaleBand({
 const colorScale = scaleOrdinal({
   domain: keys,
   range: [
-    "#d9ed92",
-    "#b5e48c",
-    "#99d98c",
-    "#76c893",
-    "#52b69a",
-    "#34a0a4",
-    "#168aad",
-    "#1a759f",
-    "#1e6091",
-    "#184e77"
+    "#0466c8",
+    "#0353a4",
+    "#023e7d",
+    "#002855",
+    "#001845",
+    "#001233",
+    "#33415c",
+    "#5c677d",
+    "#7d8597",
+    "#979dac"
   ]
 })
 
@@ -84,6 +85,8 @@ const MagicBySeason = ({
   const yMax = height - margin.top - margin.bottom
   temperatureScale.rangeRound([0, xMax])
   dateScale.rangeRound([yMax, 0])
+  const [active, setActive] = useState(null)
+  const [anyEnter, setanyEnter] = useState(false)
 
   return (
     <div>
@@ -98,40 +101,60 @@ const MagicBySeason = ({
             xScale={temperatureScale}
             yScale={dateScale}
             color={colorScale}
-            order="none"
+            // order="ascending"
+            // offset="diverging"
           >
             {barStacks => {
-              console.log(barStacks)
-              return barStacks.map(barStack =>
-                barStack.bars.map(bar => (
-                  <rect
-                    key={`barstack-horizontal-${barStack.index}-${bar.index}`}
-                    x={bar.x}
-                    y={bar.y}
-                    width={bar.width}
-                    height={bar.height}
-                    fill={bar.color}
-                    onClick={() => {
-                      if (events) alert(`clicked: ${JSON.stringify(bar)}`)
-                    }}
-                    onMouseLeave={() => {
-                      tooltipTimeout = window.setTimeout(() => {
-                        hideTooltip()
-                      }, 300)
-                    }}
-                    onMouseMove={() => {
-                      if (tooltipTimeout) clearTimeout(tooltipTimeout)
-                      const top = bar.y + margin.top
-                      const left = bar.x + bar.width + margin.left
-                      showTooltip({
-                        tooltipData: bar,
-                        tooltipTop: top,
-                        tooltipLeft: left
-                      })
-                    }}
-                  />
+              return barStacks.map((barStack, i) => {
+                return barStack.bars.map((bar, j) => (
+                  <>
+                    <rect
+                      key={`barstack-horizontal-${barStack.index}-${bar.index}`}
+                      x={bar.x}
+                      y={j === 4 ? bar.y : bar.y + bar.height}
+                      width={bar.width - 1}
+                      height={j === 4 ? bar.height : bar.height / 2}
+                      fill={bar.color}
+                      fillOpacity={bar.key === active || !active ? 1 : 0.75}
+                      stroke={bar.key === active ? "#000" : undefined}
+                      strokeWidth={bar.key === active ? 1 : 0}
+                      onClick={() => {
+                        if (events) alert(`clicked: ${JSON.stringify(bar)}`)
+                      }}
+                      onMouseLeave={() => {
+                        setActive(null)
+                        setanyEnter(false)
+                        tooltipTimeout = window.setTimeout(() => {
+                          hideTooltip()
+                        }, 300)
+                      }}
+                      onMouseMove={() => {
+                        setActive(bar.key)
+                        if (tooltipTimeout) clearTimeout(tooltipTimeout)
+                        const top = bar.y + margin.top
+                        const left = bar.x + bar.width + margin.left
+                        showTooltip({
+                          tooltipData: bar,
+                          tooltipTop: top,
+                          tooltipLeft: left
+                        })
+                      }}
+                    />
+                    {j === 4 && i < 11 && (
+                      <Text
+                        x={bar.x + bar.width / 2}
+                        y={bar.y + bar.height + 15}
+                        angle={315}
+                        // verticalAnchor={"end"}
+                        textAnchor="end"
+                        fill={bar.color}
+                      >
+                        {bar.key}
+                      </Text>
+                    )}
+                  </>
                 ))
-              )
+              })
             }}
           </BarStackHorizontal>
           <AxisLeft
@@ -148,7 +171,7 @@ const MagicBySeason = ({
               dy: "0.33em"
             })}
           />
-          <AxisBottom
+          {/* <AxisBottom
             top={yMax}
             scale={temperatureScale}
             stroke={purple3}
@@ -158,7 +181,7 @@ const MagicBySeason = ({
               fontSize: 11,
               textAnchor: "middle"
             })}
-          />
+          /> */}
         </Group>
       </svg>
       {tooltipOpen && tooltipData && (

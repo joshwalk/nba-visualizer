@@ -2280,7 +2280,7 @@
     lodash "^4.17.21"
     prop-types "^15.5.10"
 
-"@visx/text@2.1.2":
+"@visx/text@2.1.2", "@visx/text@^2.1.2":
   version "2.1.2"
   resolved "https://registry.npmjs.org/@visx/text/-/text-2.1.2.tgz#aa16ea5bcaa7f0398e12f102c5f83113f0654c69"
   integrity sha512-GlHcEijNXICijyv/EwGeFdbsQb9OUFzctO9XRalhTVKPNa8rqRyC+o3OTY9ClGDaoaKEXJyNbj7FUgkzsNfN+Q==
