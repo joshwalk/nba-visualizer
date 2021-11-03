@@ -33,22 +33,33 @@ const getSeasonData = season => {
   const totals = allMagicSeasons[season]
 
   const transformed = totals.map(cat => {
-    return Object.keys(cat).reduce((acc, key) => {
-      const total = cat.total
-      if (key === "total") return acc
-      if (key === "category") {
-        acc["category"] = cat.category
-      } else {
-        acc[key] = _.round((cat[key] / total) * 100, 2)
-      }
+    return Object.keys(cat).reduce(
+      (acc, key) => {
+        const total = cat.total
+        if (key === "total") return acc
+        if (key === "category") {
+          acc["category"] = cat.category
+        } else {
+          // acc[key] = _.round((cat[key] / total) * 100, 2)
+          if (cat[key] > 0.1) {
+            acc[key] = (cat[key] / total) * 100
+          } else acc[key] = 0.1
 
-      return acc
-    }, {})
+          acc["sum"] = acc.sum + (cat[key] / total) * 100
+        }
+
+        return acc
+      },
+      { sum: 0 }
+    )
   })
 
   return {
     data: transformed,
-    keys: Object.keys(totals[0]).filter(d => !["category", "total"].includes(d))
+    keys: Object.keys(totals[0]).filter(
+      d => !["category", "total"].includes(d)
+    ),
+    totals
   }
 }
 
@@ -93,7 +104,7 @@ const MagicBySeason = ({
   const [season, setSeason] = useState("2020")
   const [category, setCategory] = useState("PTS")
 
-  const { keys, data } = getSeasonData(season)
+  const { keys, data, totals } = getSeasonData(season)
 
   const dateScale = scaleBand({
     domain: data.map(getDate),
@@ -102,16 +113,25 @@ const MagicBySeason = ({
   const colorScale = scaleOrdinal({
     domain: keys,
     range: [
-      "#0466c8",
-      "#0353a4",
-      "#023e7d",
-      "#002855",
       "#001845",
-      "#001233",
-      "#33415c",
-      "#5c677d",
-      "#7d8597",
-      "#979dac"
+      "#002855",
+      "#023e7d",
+      "#0353a4",
+      "#0466c8",
+      "#161616",
+      "#788091",
+      "#848b9a",
+      "#8F95A3",
+      "#9AA0AC",
+      "#a5abb6",
+      "#B0B5BF",
+      "#BCC0C8",
+      "#c7cad1",
+      "#d2d5da",
+      "#dde0e3",
+      "#e9ebed",
+      "#f4f5f6",
+      "#fff"
     ]
   })
   const xMax = width - margin.left - margin.right
@@ -121,8 +141,9 @@ const MagicBySeason = ({
 
   return (
     <div style={{ textAlign: "center" }}>
+      <h1>Magic Player Contribution</h1>
       {/* note: selects are messing up tooltip spacing */}
-      <div style={{ width: 300 }}>
+      <div style={{ width: 300, margin: "0 auto" }}>
         <Select
           options={seasonSelectOptions}
           onChange={selection => setSeason(selection.value)}
@@ -239,9 +260,20 @@ const MagicBySeason = ({
           <div style={{ color: () => "#fff" }}>
             <strong>{tooltipData.key}</strong>
           </div>
-          <div>{tooltipData.bar.data[tooltipData.key]}%</div>
           <div>
-            {/* <small>{formatDate(getDate(tooltipData.bar.data))}</small> */}
+            {
+              totals.find(t => t.category === tooltipData.bar.data.category)[
+                tooltipData.key
+              ]
+            }
+          </div>
+          <div>
+            <small>
+              {tooltipData.bar.data[tooltipData.key] === 0.1
+                ? "<.1"
+                : _.round(tooltipData.bar.data[tooltipData.key], 1)}
+              {"%"}
+            </small>
           </div>
         </Tooltip>
       )}
