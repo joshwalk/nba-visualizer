@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+import Select from "react-select"
+import _ from "lodash"
 import { BarStackHorizontal } from "@visx/shape"
 import { SeriesPoint } from "@visx/shape/lib/types"
 import { Group } from "@visx/group"
@@ -13,8 +15,9 @@ import { WithTooltipProvidedProps } from "@visx/tooltip/lib/enhancers/withToolti
 import { LegendOrdinal } from "@visx/legend"
 import magicBySeasonData from "./data-processing/magic-by-season-pct.json"
 import Text from "@visx/text/lib/Text"
+import allMagicSeasons from "./data-processing/all-years.json"
 
-const defaultMargin = { top: 40, left: 50, right: 40, bottom: 100 }
+const defaultMargin = { top: 100, left: 200, right: 200, bottom: 100 }
 const purple1 = "#0077C0"
 const purple2 = "#C4CED4"
 export const purple3 = "#000"
@@ -26,48 +29,53 @@ const tooltipStyles = {
   color: "white"
 }
 
-// const data = Object.values(magicBySeasonData).map(myObj =>
-//   Object.entries(myObj)
-//     .sort((a, b) => b[1] - a[1])
-//     .reduce(
-//       (_sortedObj, [k, v]) => ({
-//         ..._sortedObj,
-//         [k]: v
-//       }),
-//       {}
-//     )
-// )
-const data = Object.values(magicBySeasonData).reverse()
-const keys = Object.keys(data[0]).filter(d => d !== "Name")
+const getSeasonData = season => {
+  const totals = allMagicSeasons[season]
+
+  const transformed = totals.map(cat => {
+    return Object.keys(cat).reduce((acc, key) => {
+      const total = cat.total
+      if (key === "total") return acc
+      if (key === "category") {
+        acc["category"] = cat.category
+      } else {
+        acc[key] = _.round((cat[key] / total) * 100, 2)
+      }
+
+      return acc
+    }, {})
+  })
+
+  return {
+    data: transformed,
+    keys: Object.keys(totals[0]).filter(d => !["category", "total"].includes(d))
+  }
+}
 
 // accessors
-const getDate = d => d.Name
+const getDate = d => d.category
 
 const temperatureScale = scaleLinear({
   domain: [0, 100],
   nice: true
 })
-const dateScale = scaleBand({
-  domain: data.map(getDate),
-  padding: 0.2
-})
-const colorScale = scaleOrdinal({
-  domain: keys,
-  range: [
-    "#0466c8",
-    "#0353a4",
-    "#023e7d",
-    "#002855",
-    "#001845",
-    "#001233",
-    "#33415c",
-    "#5c677d",
-    "#7d8597",
-    "#979dac"
-  ]
-})
 
 let tooltipTimeout
+
+const seasonSelectOptions = _.range(1990, 2022).map(yr => ({
+  value: yr.toString(),
+  label: `${yr - 1}-${yr}`
+}))
+const categoryAbbrevToFullName = {
+  PTS: "Points",
+  AST: "Assists",
+  TRB: "Rebounds",
+  BLK: "Blocks",
+  STL: "Steals"
+}
+const categorySelectOptions = Object.entries(categoryAbbrevToFullName).map(
+  ([k, v]) => ({ value: k, label: v })
+)
 
 const MagicBySeason = ({
   width,
@@ -81,15 +89,52 @@ const MagicBySeason = ({
   hideTooltip,
   showTooltip
 }) => {
+  const [active, setActive] = useState(null)
+  const [season, setSeason] = useState("2020")
+  const [category, setCategory] = useState("PTS")
+
+  const { keys, data } = getSeasonData(season)
+
+  const dateScale = scaleBand({
+    domain: data.map(getDate),
+    padding: 0.2
+  })
+  const colorScale = scaleOrdinal({
+    domain: keys,
+    range: [
+      "#0466c8",
+      "#0353a4",
+      "#023e7d",
+      "#002855",
+      "#001845",
+      "#001233",
+      "#33415c",
+      "#5c677d",
+      "#7d8597",
+      "#979dac"
+    ]
+  })
   const xMax = width - margin.left - margin.right
   const yMax = height - margin.top - margin.bottom
   temperatureScale.rangeRound([0, xMax])
   dateScale.rangeRound([yMax, 0])
-  const [active, setActive] = useState(null)
-  const [anyEnter, setanyEnter] = useState(false)
 
   return (
-    <div>
+    <div style={{ textAlign: "center" }}>
+      {/* note: selects are messing up tooltip spacing */}
+      <div style={{ width: 300 }}>
+        <Select
+          options={seasonSelectOptions}
+          onChange={selection => setSeason(selection.value)}
+          value={seasonSelectOptions.find(opt => opt.value === season)}
+        />
+        <Select
+          options={categorySelectOptions}
+          onChange={selection => setCategory(selection.value)}
+          value={categorySelectOptions.find(opt => opt.value === category)}
+        />
+      </div>
+
       <svg width={width} height={height}>
         <rect width={width} height={height} fill={background} rx={14} />
         <Group top={margin.top} left={margin.left}>
@@ -111,19 +156,22 @@ const MagicBySeason = ({
                     <rect
                       key={`barstack-horizontal-${barStack.index}-${bar.index}`}
                       x={bar.x}
-                      y={j === 4 ? bar.y : bar.y + bar.height}
+                      y={bar.y}
+                      style={{
+                        width: bar.width - 1,
+                        opacity: bar.key === active || !active ? 1 : 0.75,
+                        transition: "width 0.25s ease-in-out, opacity 0.5s"
+                      }}
                       width={bar.width - 1}
-                      height={j === 4 ? bar.height : bar.height / 2}
+                      height={bar.height}
                       fill={bar.color}
-                      fillOpacity={bar.key === active || !active ? 1 : 0.75}
-                      stroke={bar.key === active ? "#000" : undefined}
-                      strokeWidth={bar.key === active ? 1 : 0}
+                      // stroke={bar.key === active ? "#000" : undefined}
+                      // strokeWidth={bar.key === active ? 1 : 0}
                       onClick={() => {
                         if (events) alert(`clicked: ${JSON.stringify(bar)}`)
                       }}
                       onMouseLeave={() => {
                         setActive(null)
-                        setanyEnter(false)
                         tooltipTimeout = window.setTimeout(() => {
                           hideTooltip()
                         }, 300)
@@ -140,7 +188,7 @@ const MagicBySeason = ({
                         })
                       }}
                     />
-                    {j === 4 && i < 11 && (
+                    {/* {j === 4 && i < 11 && (
                       <Text
                         x={bar.x + bar.width / 2}
                         y={bar.y + bar.height + 15}
@@ -151,14 +199,14 @@ const MagicBySeason = ({
                       >
                         {bar.key}
                       </Text>
-                    )}
+                    )} */}
                   </>
                 ))
               })
             }}
           </BarStackHorizontal>
           <AxisLeft
-            hideAxisLine
+            // hideAxisLine
             hideTicks
             scale={dateScale}
             tickFormat={d => d}
@@ -168,6 +216,7 @@ const MagicBySeason = ({
               fill: purple3,
               fontSize: 11,
               textAnchor: "end",
+              // verticalAnchor: "s",
               dy: "0.33em"
             })}
           />
