@@ -17,10 +17,8 @@ import magicBySeasonData from "./data-processing/magic-by-season-pct.json"
 import Text from "@visx/text/lib/Text"
 import allMagicSeasons from "./data-processing/all-years.json"
 
-const defaultMargin = { top: 100, left: 200, right: 200, bottom: 100 }
-const purple1 = "#0077C0"
-const purple2 = "#C4CED4"
-export const purple3 = "#000"
+const defaultMargin = { top: 0, left: 200, right: 200, bottom: 100 }
+const black = "#000"
 const background = "#fff"
 const tooltipStyles = {
   ...defaultStyles,
@@ -33,25 +31,18 @@ const getSeasonData = season => {
   const totals = allMagicSeasons[season]
 
   const transformed = totals.map(cat => {
-    return Object.keys(cat).reduce(
-      (acc, key) => {
-        const total = cat.total
-        if (key === "total") return acc
-        if (key === "category") {
-          acc["category"] = cat.category
-        } else {
-          // acc[key] = _.round((cat[key] / total) * 100, 2)
-          if (cat[key] > 0.1) {
-            acc[key] = (cat[key] / total) * 100
-          } else acc[key] = 0.1
-
-          acc["sum"] = acc.sum + (cat[key] / total) * 100
-        }
-
-        return acc
-      },
-      { sum: 0 }
-    )
+    return Object.keys(cat).reduce((acc, key) => {
+      const total = cat.total
+      if (key === "total") return acc
+      if (key === "category") {
+        acc["category"] = cat.category
+      } else {
+        if (cat[key] > 0.1) {
+          acc[key] = (cat[key] / total) * 100
+        } else acc[key] = 0.1
+      }
+      return acc
+    }, {})
   })
 
   return {
@@ -63,16 +54,13 @@ const getSeasonData = season => {
   }
 }
 
-// accessors
-const getDate = d => d.category
-
-const temperatureScale = scaleLinear({
+const getCategory = d => d.category
+const percentageScale = scaleLinear({
   domain: [0, 100],
   nice: true
 })
 
-let tooltipTimeout
-
+// Dropdown options
 const seasonSelectOptions = _.range(1990, 2022).map(yr => ({
   value: yr.toString(),
   label: `${yr - 1}-${yr}`
@@ -87,6 +75,8 @@ const categoryAbbrevToFullName = {
 const categorySelectOptions = Object.entries(categoryAbbrevToFullName).map(
   ([k, v]) => ({ value: k, label: v })
 )
+
+let tooltipTimeout
 
 const MagicBySeason = ({
   width,
@@ -106,8 +96,8 @@ const MagicBySeason = ({
 
   const { keys, data, totals } = getSeasonData(season)
 
-  const dateScale = scaleBand({
-    domain: data.map(getDate),
+  const categoryScale = scaleBand({
+    domain: data.map(getCategory),
     padding: 0.2
   })
   const colorScale = scaleOrdinal({
@@ -136,8 +126,8 @@ const MagicBySeason = ({
   })
   const xMax = width - margin.left - margin.right
   const yMax = height - margin.top - margin.bottom
-  temperatureScale.rangeRound([0, xMax])
-  dateScale.rangeRound([yMax, 0])
+  percentageScale.rangeRound([0, xMax])
+  categoryScale.rangeRound([yMax, 0])
 
   return (
     <div style={{ textAlign: "center" }}>
@@ -163,9 +153,9 @@ const MagicBySeason = ({
             data={data}
             keys={keys}
             height={yMax}
-            y={getDate}
-            xScale={temperatureScale}
-            yScale={dateScale}
+            y={getCategory}
+            xScale={percentageScale}
+            yScale={categoryScale}
             color={colorScale}
             // order="ascending"
             // offset="diverging"
@@ -186,8 +176,6 @@ const MagicBySeason = ({
                       width={bar.width - 1}
                       height={bar.height}
                       fill={bar.color}
-                      // stroke={bar.key === active ? "#000" : undefined}
-                      // strokeWidth={bar.key === active ? 1 : 0}
                       onClick={() => {
                         if (events) alert(`clicked: ${JSON.stringify(bar)}`)
                       }}
@@ -229,25 +217,23 @@ const MagicBySeason = ({
           <AxisLeft
             // hideAxisLine
             hideTicks
-            scale={dateScale}
+            scale={categoryScale}
             tickFormat={d => d}
-            stroke={purple3}
-            tickStroke={purple3}
+            roke={black}
             tickLabelProps={() => ({
-              fill: purple3,
+              fill: black,
               fontSize: 11,
               textAnchor: "end",
-              // verticalAnchor: "s",
               dy: "0.33em"
             })}
           />
           {/* <AxisBottom
             top={yMax}
-            scale={temperatureScale}
-            stroke={purple3}
-            tickStroke={purple3}
+            scale={percentageScale}
+  roke={black}
+          roke={black}
             tickLabelProps={() => ({
-              fill: purple3,
+fill: black,
               fontSize: 11,
               textAnchor: "middle"
             })}
@@ -256,7 +242,6 @@ const MagicBySeason = ({
       </svg>
       {tooltipOpen && tooltipData && (
         <Tooltip top={tooltipTop} left={tooltipLeft} style={tooltipStyles}>
-          {/* <div style={{ color: colorScale(tooltipData.key) }}> */}
           <div style={{ color: () => "#fff" }}>
             <strong>{tooltipData.key}</strong>
           </div>
