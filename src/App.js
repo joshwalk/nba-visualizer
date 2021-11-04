@@ -1,8 +1,7 @@
-import MagicBySeason from "./magic-by-season/MagicBySeason"
-import AgingLikeWine from "./AgingLikeWine"
+import Home from "./Home"
 
-function App({ post }) {
-  return post === "Aging Like Wine" ? <AgingLikeWine /> : <MagicBySeason />
+function App() {
+  return <Home />
 }
 
 export default App
