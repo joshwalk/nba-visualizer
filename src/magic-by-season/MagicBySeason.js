@@ -125,7 +125,7 @@ const MagicBySeason = ({
             justifyContent: "center"
           }}
         >
-          <div style={{ marginRight: 5, width: 200 }}>
+          <div style={{ marginRight: 5, width: 175 }}>
             <label>Season</label>
             <Select
               isSearchable={false}
@@ -135,7 +135,7 @@ const MagicBySeason = ({
             />
           </div>
 
-          <div style={{ marginLeft: 5, width: 200 }}>
+          <div style={{ marginLeft: 5, width: 175 }}>
             <label>Category</label>
             <Select
               isSearchable={false}
@@ -149,13 +149,17 @@ const MagicBySeason = ({
       <div style={{ height: 800 }}>
         <ParentSize>
           {({ height, width }) => {
-            const xMax = width - margin.left - margin.right
+            const xMargins = {
+              left: width < 850 ? 30 : 50,
+              right: width < 850 ? 5 : 50
+            }
+            const xMax = width - xMargins.left - xMargins.right
             const yMax = height / 2 - margin.top - margin.bottom
             percentageScale.rangeRound([0, xMax])
             return (
               <>
                 <svg width={width} height={height}>
-                  <Group top={margin.top} left={margin.left}>
+                  <Group top={margin.top} left={xMargins.left}>
                     <MainCategoryGraph
                       data={[data.find(d => d.category === category)]}
                       xScale={percentageScale}
@@ -168,7 +172,8 @@ const MagicBySeason = ({
                         showTooltip,
                         hideTooltip,
                         headerHeight,
-                        yMax
+                        yMax,
+                        width
                       }}
                     />
                     <OtherCategoriesGraph

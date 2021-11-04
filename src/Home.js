@@ -17,7 +17,7 @@ const Home = () => {
         <img style={{ width: 100, height: 90 }} src={logo} />
         <div style={{ marginTop: 5 }}>+ 🏀</div>
       </div>
-      <div style={{ textAlign: "center", marginTop: 200 }}>
+      <div style={{ textAlign: "center", marginTop: 100 }}>
         <Link to="/aging-like-wine">
           <h1 style={{ fontSize: 58, lineHeight: 1.1, cursor: "pointer" }}>
             Aging Like Wine &#8594;

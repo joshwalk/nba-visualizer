@@ -18,7 +18,8 @@ const MainCategoryGraph = ({
   tooltipTimeout,
   hideTooltip,
   headerHeight,
-  yMax
+  yMax,
+  width
 }) => {
   const categoryScale = scaleBand({
     domain: data.map(getCategory),
@@ -69,7 +70,7 @@ const MainCategoryGraph = ({
                     })
                   }}
                 />
-                {i < 11 && (
+                {i < 11 && width >= 850 && (
                   <Text
                     x={bar.x + bar.width / 2}
                     y={bar.y + bar.height - 80}
