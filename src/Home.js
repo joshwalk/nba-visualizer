@@ -15,7 +15,7 @@ const Home = () => {
           fontWeight: "200"
         }}
       >
-        <img style={{ width: 100 }} src={logo} />
+        <img style={{ width: 100, height: 90 }} src={logo} />
         <div style={{ marginTop: 5 }}>+ 🏀</div>
       </div>
       <div style={{ textAlign: "center", marginTop: 200 }}>
