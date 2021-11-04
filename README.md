@@ -1,12 +1,20 @@
-# NBA Stats Visualization - An Analysis of NBA Players' Peak PPG Seasons
+# NBA Stats Visualizations
 
-See the completed project here: 
-[An Analysis of NBA Players' Peak PPG Seasons](https://joshwalk.github.io/nba-visualizer/).
-
-See Jupyter notebook `nba_season_data_processing.ipynb` for data processing and cleaning process.
+[Homepage](https://joshwalk.github.io/nba-visualizer/)
+## Aging Like Wine: An Analysis of NBA Players' Peak PPG Seasons
+[Link to project page](https://joshwalk.github.io/nba-visualizer/aging-like-wine)
 
 Built with:
 - Python and pandas for data processing
-- Javascript (React) & library `recharts` (d3) on frontend
+- Javascript (React) & library `recharts` on frontend
 
-Data sourced from Basketball Reference.
+
+## Magic Over the Years: Player Totals vs. Team Totals
+[Link to project page](https://joshwalk.github.io/nba-visualizer/magic-over-the-years/)
+
+Built with:
+- Python and pandas for data processing
+- Javascript (React) & library `visx` (d3) on frontend
+
+
+*Data for both projects sourced from Basketball Reference.*
