@@ -29,6 +29,10 @@ strong {
   font-weight: bold;
 }
 
+a {
+  text-decoration: none;
+}
+
 h1 {
   font-size: 72px;
   font-weight: bold;

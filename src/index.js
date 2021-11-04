@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { HashRouter, Route } from "react-router-dom"
 import "./index.css"
 import App from "./App"
 import reportWebVitals from "./reportWebVitals"
@@ -9,19 +9,17 @@ import MagicBySeason from "./magic-by-season/MagicBySeason"
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/nba-visualizer" element={<App />} />
-        <Route
-          path="/nba-visualizer/aging-like-wine"
-          element={<AgingLikeWine />}
-        />
-        <Route
-          path="/nba-visualizer/magic-over-the-years"
-          element={<MagicBySeason />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <HashRouter>
+      <Route exact path="/">
+        <App />
+      </Route>
+      <Route path="/aging-like-wine">
+        <AgingLikeWine />
+      </Route>
+      <Route path="/magic-over-the-years">
+        <MagicBySeason />
+      </Route>
+    </HashRouter>
   </React.StrictMode>,
   document.getElementById("root")
 )

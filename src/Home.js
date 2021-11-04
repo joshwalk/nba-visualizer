@@ -1,9 +1,8 @@
 import React from "react"
-import { useNavigate } from "react-router"
+import { Link } from "react-router-dom"
 import logo from "./logo2.png"
 
 const Home = () => {
-  let navigate = useNavigate()
   return (
     <div>
       <div
@@ -19,19 +18,17 @@ const Home = () => {
         <div style={{ marginTop: 5 }}>+ 🏀</div>
       </div>
       <div style={{ textAlign: "center", marginTop: 200 }}>
-        <h1
-          onClick={() => navigate("/nba-visualizer/aging-like-wine")}
-          style={{ fontSize: 58, lineHeight: 1.1, cursor: "pointer" }}
-        >
-          Aging Like Wine &#8594;
-        </h1>
-        <h1
-          onClick={() => navigate("/nba-visualizer/magic-over-the-years")}
-          className="magic"
-          style={{ cursor: "pointer" }}
-        >
-          Magic Over the Years &#8594;
-        </h1>
+        <Link to="/aging-like-wine">
+          <h1 style={{ fontSize: 58, lineHeight: 1.1, cursor: "pointer" }}>
+            Aging Like Wine &#8594;
+          </h1>
+        </Link>
+
+        <Link to="/magic-over-the-years">
+          <h1 className="magic" style={{ cursor: "pointer" }}>
+            Magic Over the Years &#8594;
+          </h1>
+        </Link>
       </div>
     </div>
   )
