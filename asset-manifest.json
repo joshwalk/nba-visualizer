@@ -1,23 +1,24 @@
 {
   "files": {
-    "main.css": "/nba-visualizer/static/css/main.1f3b6a27.chunk.css",
-    "main.js": "/nba-visualizer/static/js/main.d62297fc.chunk.js",
-    "main.js.map": "/nba-visualizer/static/js/main.d62297fc.chunk.js.map",
-    "runtime-main.js": "/nba-visualizer/static/js/runtime-main.235bee67.js",
-    "runtime-main.js.map": "/nba-visualizer/static/js/runtime-main.235bee67.js.map",
-    "static/js/2.3dc3d379.chunk.js": "/nba-visualizer/static/js/2.3dc3d379.chunk.js",
-    "static/js/2.3dc3d379.chunk.js.map": "/nba-visualizer/static/js/2.3dc3d379.chunk.js.map",
-    "static/js/3.6076eddf.chunk.js": "/nba-visualizer/static/js/3.6076eddf.chunk.js",
-    "static/js/3.6076eddf.chunk.js.map": "/nba-visualizer/static/js/3.6076eddf.chunk.js.map",
+    "main.css": "/nba-visualizer/static/css/main.97fe4cda.chunk.css",
+    "main.js": "/nba-visualizer/static/js/main.724f5df5.chunk.js",
+    "main.js.map": "/nba-visualizer/static/js/main.724f5df5.chunk.js.map",
+    "runtime-main.js": "/nba-visualizer/static/js/runtime-main.c045b2b0.js",
+    "runtime-main.js.map": "/nba-visualizer/static/js/runtime-main.c045b2b0.js.map",
+    "static/js/2.14bbea78.chunk.js": "/nba-visualizer/static/js/2.14bbea78.chunk.js",
+    "static/js/2.14bbea78.chunk.js.map": "/nba-visualizer/static/js/2.14bbea78.chunk.js.map",
+    "static/js/3.3ae44b62.chunk.js": "/nba-visualizer/static/js/3.3ae44b62.chunk.js",
+    "static/js/3.3ae44b62.chunk.js.map": "/nba-visualizer/static/js/3.3ae44b62.chunk.js.map",
     "index.html": "/nba-visualizer/index.html",
-    "static/css/main.1f3b6a27.chunk.css.map": "/nba-visualizer/static/css/main.1f3b6a27.chunk.css.map",
-    "static/js/2.3dc3d379.chunk.js.LICENSE.txt": "/nba-visualizer/static/js/2.3dc3d379.chunk.js.LICENSE.txt",
-    "static/media/jj3.8754e968.jpg": "/nba-visualizer/static/media/jj3.8754e968.jpg"
+    "static/css/main.97fe4cda.chunk.css.map": "/nba-visualizer/static/css/main.97fe4cda.chunk.css.map",
+    "static/js/2.14bbea78.chunk.js.LICENSE.txt": "/nba-visualizer/static/js/2.14bbea78.chunk.js.LICENSE.txt",
+    "static/media/jj3.8754e968.jpg": "/nba-visualizer/static/media/jj3.8754e968.jpg",
+    "static/media/logo2.0030b413.png": "/nba-visualizer/static/media/logo2.0030b413.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.235bee67.js",
-    "static/js/2.3dc3d379.chunk.js",
-    "static/css/main.1f3b6a27.chunk.css",
-    "static/js/main.d62297fc.chunk.js"
+    "static/js/runtime-main.c045b2b0.js",
+    "static/js/2.14bbea78.chunk.js",
+    "static/css/main.97fe4cda.chunk.css",
+    "static/js/main.724f5df5.chunk.js"
   ]
 }
