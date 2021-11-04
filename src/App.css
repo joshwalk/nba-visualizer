@@ -1,4 +1,4 @@
-/* .App {
+.App {
   text-align: center;
   margin: 0 auto 5em auto;
   line-height: 1.5;
@@ -36,10 +36,29 @@ h1 {
 	-webkit-text-fill-color: transparent;
 }
 
+h1.magic {
+  font-size: 58px;
+  line-height: 1.1;
+  padding-top: 17px;
+  background: linear-gradient(to right, #0466c8 0%, #000000 100%); 
+  -webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
 h2 {
   font-weight: bold;
   text-transform: uppercase;
   color: #006BB6;
+}
+
+h2.magic {
+  color: #0466c8;
+  margin-top: 5px;
+}
+
+label {
+  font-size: 15px;
+  color: #9c9da0;
 }
 
 .content {
@@ -51,4 +70,4 @@ h2 {
 ul {
   list-style-type:disc;
   margin-left: 2em;
-} */
+}
