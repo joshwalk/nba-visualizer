@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/nba-visualizer/static/css/main.b3371ef9.chunk.css",
-    "main.js": "/nba-visualizer/static/js/main.9faebce4.chunk.js",
-    "main.js.map": "/nba-visualizer/static/js/main.9faebce4.chunk.js.map",
+    "main.js": "/nba-visualizer/static/js/main.35089464.chunk.js",
+    "main.js.map": "/nba-visualizer/static/js/main.35089464.chunk.js.map",
     "runtime-main.js": "/nba-visualizer/static/js/runtime-main.b3ef4fba.js",
     "runtime-main.js.map": "/nba-visualizer/static/js/runtime-main.b3ef4fba.js.map",
     "static/js/2.4f529a74.chunk.js": "/nba-visualizer/static/js/2.4f529a74.chunk.js",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.b3ef4fba.js",
     "static/js/2.4f529a74.chunk.js",
     "static/css/main.b3371ef9.chunk.css",
-    "static/js/main.9faebce4.chunk.js"
+    "static/js/main.35089464.chunk.js"
   ]
 }
