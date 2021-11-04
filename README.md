@@ -2,7 +2,7 @@
 
 [Homepage](https://joshwalk.github.io/nba-visualizer/)
 ## Aging Like Wine: An Analysis of NBA Players' Peak PPG Seasons
-[Link to project page](https://joshwalk.github.io/nba-visualizer/aging-like-wine)
+[Link to project page](https://joshwalk.github.io/nba-visualizer/#/aging-like-wine)
 
 Built with:
 - Python and pandas for data processing
@@ -10,7 +10,7 @@ Built with:
 
 
 ## Magic Over the Years: Player Totals vs. Team Totals
-[Link to project page](https://joshwalk.github.io/nba-visualizer/magic-over-the-years/)
+[Link to project page](https://joshwalk.github.io/nba-visualizer/#/magic-over-the-years)
 
 Built with:
 - Python and pandas for data processing
