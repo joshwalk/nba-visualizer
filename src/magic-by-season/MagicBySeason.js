@@ -150,8 +150,8 @@ const MagicBySeason = ({
         <ParentSize>
           {({ height, width }) => {
             const xMargins = {
-              left: width < 850 ? 30 : 50,
-              right: width < 850 ? 5 : 50
+              left: width < 850 ? 30 : 100,
+              right: width < 850 ? 5 : 100
             }
             const xMax = width - xMargins.left - xMargins.right
             const yMax = height / 2 - margin.top - margin.bottom
