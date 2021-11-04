@@ -1,25 +1,15 @@
 import React, { useState } from "react"
 import Select from "react-select"
 import _ from "lodash"
-import { BarStackHorizontal } from "@visx/shape"
-import { SeriesPoint } from "@visx/shape/lib/types"
 import { Group } from "@visx/group"
-import { AxisBottom, AxisLeft } from "@visx/axis"
-import cityTemperature, {
-  CityTemperature
-} from "@visx/mock-data/lib/mocks/cityTemperature"
-import { scaleBand, scaleLinear, scaleOrdinal } from "@visx/scale"
-import { timeParse, timeFormat } from "d3-time-format"
+import { scaleLinear, scaleOrdinal } from "@visx/scale"
 import { withTooltip, Tooltip, defaultStyles } from "@visx/tooltip"
-import { WithTooltipProvidedProps } from "@visx/tooltip/lib/enhancers/withTooltip"
-import { LegendOrdinal } from "@visx/legend"
-import magicBySeasonData from "./data-processing/magic-by-season-pct.json"
-import Text from "@visx/text/lib/Text"
 import allMagicSeasons from "./data-processing/all-years.json"
+import ParentSize from "@visx/responsive/lib/components/ParentSize"
+import MainCategoryGraph from "./MainCategoryGraph"
+import OtherCategoriesGraph from "./OtherCategoriesGraph"
 
-const defaultMargin = { top: 0, left: 200, right: 200, bottom: 100 }
-const black = "#000"
-const background = "#fff"
+const defaultMargin = { top: 0, left: 100, right: 100, bottom: 100 }
 const tooltipStyles = {
   ...defaultStyles,
   minWidth: 60,
@@ -61,7 +51,7 @@ const percentageScale = scaleLinear({
 })
 
 // Dropdown options
-const seasonSelectOptions = _.range(1990, 2022).map(yr => ({
+const seasonSelectOptions = _.range(1990, 2021).map(yr => ({
   value: yr.toString(),
   label: `${yr - 1}-${yr}`
 }))
@@ -76,12 +66,7 @@ const categorySelectOptions = Object.entries(categoryAbbrevToFullName).map(
   ([k, v]) => ({ value: k, label: v })
 )
 
-let tooltipTimeout
-
 const MagicBySeason = ({
-  width,
-  height,
-  events = false,
   margin = defaultMargin,
   tooltipOpen,
   tooltipLeft,
@@ -96,172 +81,144 @@ const MagicBySeason = ({
 
   const { keys, data, totals } = getSeasonData(season)
 
-  const categoryScale = scaleBand({
-    domain: data.map(getCategory),
-    padding: 0.2
-  })
   const colorScale = scaleOrdinal({
     domain: keys,
     range: [
-      "#001845",
-      "#002855",
-      "#023e7d",
-      "#0353a4",
+      "#011428",
+      "#011f3c",
+      "#022950",
+      "#023364",
+      "#023d78",
+      "#03478c",
+      "#0352a0",
+      "#045cb4",
       "#0466c8",
-      "#161616",
-      "#788091",
-      "#848b9a",
-      "#8F95A3",
-      "#9AA0AC",
-      "#a5abb6",
-      "#B0B5BF",
-      "#BCC0C8",
-      "#c7cad1",
-      "#d2d5da",
+      "#0470dc",
+      "#057af0",
+      "#0f85fa",
+      "#238ffb",
+      "#3799fb",
+      "#43a3fb",
+      "#5fadfc",
+      "#73b8fc",
+      "#87c2fd",
       "#dde0e3",
       "#e9ebed",
-      "#f4f5f6",
-      "#fff"
+      "#f4f5f6"
     ]
   })
-  const xMax = width - margin.left - margin.right
-  const yMax = height - margin.top - margin.bottom
-  percentageScale.rangeRound([0, xMax])
-  categoryScale.rangeRound([yMax, 0])
+
+  const headerHeight = 200
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>Magic Player Contribution</h1>
-      {/* note: selects are messing up tooltip spacing */}
-      <div style={{ width: 300, margin: "0 auto" }}>
-        <Select
-          options={seasonSelectOptions}
-          onChange={selection => setSeason(selection.value)}
-          value={seasonSelectOptions.find(opt => opt.value === season)}
-        />
-        <Select
-          options={categorySelectOptions}
-          onChange={selection => setCategory(selection.value)}
-          value={categorySelectOptions.find(opt => opt.value === category)}
-        />
-      </div>
+    <div style={{ textAlign: "center", height: "100%" }}>
+      <div style={{ height: headerHeight }}>
+        <h1 className="magic">Magic Over the Years</h1>
+        <h2 className="magic">
+          Player totals by season, proportional to team totals
+        </h2>
+        <div
+          style={{
+            margin: "15px auto 0 auto",
+            textAlign: "left",
+            display: "flex",
+            justifyContent: "center"
+          }}
+        >
+          <div style={{ marginRight: 5, width: 200 }}>
+            <label>Season</label>
+            <Select
+              isSearchable={false}
+              options={seasonSelectOptions}
+              onChange={selection => setSeason(selection.value)}
+              value={seasonSelectOptions.find(opt => opt.value === season)}
+            />
+          </div>
 
-      <svg width={width} height={height}>
-        <rect width={width} height={height} fill={background} rx={14} />
-        <Group top={margin.top} left={margin.left}>
-          <BarStackHorizontal
-            data={data}
-            keys={keys}
-            height={yMax}
-            y={getCategory}
-            xScale={percentageScale}
-            yScale={categoryScale}
-            color={colorScale}
-            // order="ascending"
-            // offset="diverging"
-          >
-            {barStacks => {
-              return barStacks.map((barStack, i) => {
-                return barStack.bars.map((bar, j) => (
-                  <>
-                    <rect
-                      key={`barstack-horizontal-${barStack.index}-${bar.index}`}
-                      x={bar.x}
-                      y={bar.y}
-                      style={{
-                        width: bar.width - 1,
-                        opacity: bar.key === active || !active ? 1 : 0.75,
-                        transition: "width 0.25s ease-in-out, opacity 0.5s"
-                      }}
-                      width={bar.width - 1}
-                      height={bar.height}
-                      fill={bar.color}
-                      onClick={() => {
-                        if (events) alert(`clicked: ${JSON.stringify(bar)}`)
-                      }}
-                      onMouseLeave={() => {
-                        setActive(null)
-                        tooltipTimeout = window.setTimeout(() => {
-                          hideTooltip()
-                        }, 300)
-                      }}
-                      onMouseMove={() => {
-                        setActive(bar.key)
-                        if (tooltipTimeout) clearTimeout(tooltipTimeout)
-                        const top = bar.y + margin.top
-                        const left = bar.x + bar.width + margin.left
-                        showTooltip({
-                          tooltipData: bar,
-                          tooltipTop: top,
-                          tooltipLeft: left
-                        })
+          <div style={{ marginLeft: 5, width: 200 }}>
+            <label>Category</label>
+            <Select
+              isSearchable={false}
+              options={categorySelectOptions}
+              onChange={selection => setCategory(selection.value)}
+              value={categorySelectOptions.find(opt => opt.value === category)}
+            />
+          </div>
+        </div>
+      </div>
+      <div style={{ height: 800 }}>
+        <ParentSize>
+          {({ height, width }) => {
+            const xMax = width - margin.left - margin.right
+            const yMax = height / 2 - margin.top - margin.bottom
+            percentageScale.rangeRound([0, xMax])
+            return (
+              <>
+                <svg width={width} height={height}>
+                  <Group top={margin.top} left={margin.left}>
+                    <MainCategoryGraph
+                      data={[data.find(d => d.category === category)]}
+                      xScale={percentageScale}
+                      {...{
+                        colorScale,
+                        keys,
+                        getCategory,
+                        active,
+                        setActive,
+                        showTooltip,
+                        hideTooltip,
+                        headerHeight,
+                        yMax
                       }}
                     />
-                    {/* {j === 4 && i < 11 && (
-                      <Text
-                        x={bar.x + bar.width / 2}
-                        y={bar.y + bar.height + 15}
-                        angle={315}
-                        // verticalAnchor={"end"}
-                        textAnchor="end"
-                        fill={bar.color}
-                      >
-                        {bar.key}
-                      </Text>
-                    )} */}
-                  </>
-                ))
-              })
-            }}
-          </BarStackHorizontal>
-          <AxisLeft
-            // hideAxisLine
-            hideTicks
-            scale={categoryScale}
-            tickFormat={d => d}
-            roke={black}
-            tickLabelProps={() => ({
-              fill: black,
-              fontSize: 11,
-              textAnchor: "end",
-              dy: "0.33em"
-            })}
-          />
-          {/* <AxisBottom
-            top={yMax}
-            scale={percentageScale}
-  roke={black}
-          roke={black}
-            tickLabelProps={() => ({
-fill: black,
-              fontSize: 11,
-              textAnchor: "middle"
-            })}
-          /> */}
-        </Group>
-      </svg>
-      {tooltipOpen && tooltipData && (
-        <Tooltip top={tooltipTop} left={tooltipLeft} style={tooltipStyles}>
-          <div style={{ color: () => "#fff" }}>
-            <strong>{tooltipData.key}</strong>
-          </div>
-          <div>
-            {
-              totals.find(t => t.category === tooltipData.bar.data.category)[
-                tooltipData.key
-              ]
-            }
-          </div>
-          <div>
-            <small>
-              {tooltipData.bar.data[tooltipData.key] === 0.1
-                ? "<.1"
-                : _.round(tooltipData.bar.data[tooltipData.key], 1)}
-              {"%"}
-            </small>
-          </div>
-        </Tooltip>
-      )}
+                    <OtherCategoriesGraph
+                      data={data.filter(d => d.category !== category)}
+                      xScale={percentageScale}
+                      {...{
+                        colorScale,
+                        keys,
+                        getCategory,
+                        active,
+                        setActive,
+                        showTooltip,
+                        hideTooltip,
+                        headerHeight,
+                        yMax
+                      }}
+                    />
+                  </Group>
+                </svg>
+                {tooltipOpen && tooltipData && (
+                  <Tooltip
+                    top={tooltipTop}
+                    left={tooltipLeft}
+                    style={tooltipStyles}
+                  >
+                    <div style={{ color: () => "#fff" }}>
+                      <strong>{tooltipData.key}</strong>
+                    </div>
+                    <div>
+                      {
+                        totals.find(
+                          t => t.category === tooltipData.bar.data.category
+                        )[tooltipData.key]
+                      }
+                    </div>
+                    <div>
+                      <small>
+                        {tooltipData.bar.data[tooltipData.key] === 0.1
+                          ? "<.1"
+                          : _.round(tooltipData.bar.data[tooltipData.key], 1)}
+                        {"%"}
+                      </small>
+                    </div>
+                  </Tooltip>
+                )}
+              </>
+            )
+          }}
+        </ParentSize>
+      </div>
     </div>
   )
 }
