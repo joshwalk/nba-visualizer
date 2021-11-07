@@ -1,8 +1,7 @@
 import React from "react"
 import { JJLineChart } from "./JJLineChart"
-import JJ from "./jj3.jpg"
+import JJ from "../images/jj3.jpg"
 import { AgeScatterChart } from "./AgeScatterChart"
-import "./App.css"
 
 const AgingLikeWine = () => {
   return (

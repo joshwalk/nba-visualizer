@@ -1,6 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import logo from "./logo2.png"
+import logo from "./images/jw-logo.png"
 
 const Home = () => {
   return (
@@ -14,7 +14,11 @@ const Home = () => {
           fontWeight: "200"
         }}
       >
-        <img style={{ width: 100, height: 90 }} src={logo} />
+        <img
+          alt="Josh Walker logo"
+          style={{ width: 100, height: 90 }}
+          src={logo}
+        />
         <div style={{ marginTop: 5 }}>+ 🏀</div>
       </div>
       <div style={{ textAlign: "center", marginTop: 100 }}>

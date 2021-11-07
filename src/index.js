@@ -4,7 +4,7 @@ import { HashRouter, Route } from "react-router-dom"
 import "./index.css"
 import App from "./App"
 import reportWebVitals from "./reportWebVitals"
-import AgingLikeWine from "./AgingLikeWine"
+import AgingLikeWine from "./aging-like-wine/AgingLikeWine"
 import MagicBySeason from "./magic-by-season/MagicBySeason"
 
 ReactDOM.render(

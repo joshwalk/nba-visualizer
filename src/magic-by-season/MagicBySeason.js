@@ -9,7 +9,10 @@ import ParentSize from "@visx/responsive/lib/components/ParentSize"
 import MainCategoryGraph from "./MainCategoryGraph"
 import OtherCategoriesGraph from "./OtherCategoriesGraph"
 
+// Sizing
 const defaultMargin = { top: 0, left: 100, right: 100, bottom: 100 }
+const headerHeight = 200
+
 const tooltipStyles = {
   ...defaultStyles,
   minWidth: 60,
@@ -17,6 +20,7 @@ const tooltipStyles = {
   color: "white"
 }
 
+// Transform to format d3 undeerstands
 const getSeasonData = season => {
   const totals = allMagicSeasons[season]
 
@@ -107,8 +111,6 @@ const MagicBySeason = ({
       "#f4f5f6"
     ]
   })
-
-  const headerHeight = 200
 
   return (
     <div style={{ textAlign: "center", height: "100%" }}>

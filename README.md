@@ -14,7 +14,7 @@ Built with:
 
 Built with:
 - Python and pandas for data processing
-- Javascript (React) & library `visx` (d3) on frontend
+- Javascript (React) & library `visx` (based on d3) on frontend
 
 
 *Data for both projects sourced from Basketball Reference.*
