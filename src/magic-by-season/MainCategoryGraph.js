@@ -1,6 +1,6 @@
 import React from "react"
 import { BarStackHorizontal } from "@visx/shape"
-import { AxisBottom, AxisLeft } from "@visx/axis"
+import { AxisLeft } from "@visx/axis"
 import { localPoint } from "@visx/event"
 import { scaleBand } from "@visx/scale"
 import Text from "@visx/text/lib/Text"
@@ -10,12 +10,10 @@ const MainCategoryGraph = ({
   colorScale,
   keys,
   xScale,
-  yScale,
   getCategory,
   active,
   setActive,
   showTooltip,
-  tooltipTimeout,
   hideTooltip,
   headerHeight,
   yMax,
@@ -36,8 +34,6 @@ const MainCategoryGraph = ({
         xScale={xScale}
         yScale={categoryScale}
         color={colorScale}
-        // order="ascending"
-        // offset="diverging"
       >
         {barStacks => {
           return barStacks.map((barStack, i) => {
@@ -53,7 +49,6 @@ const MainCategoryGraph = ({
                     transition: "width 0.25s ease-in-out, opacity 0.5s"
                   }}
                   width={bar.width - 1}
-                  // height={bar.height}
                   height={100}
                   fill={bar.color}
                   onMouseLeave={() => {
@@ -70,13 +65,15 @@ const MainCategoryGraph = ({
                     })
                   }}
                 />
-                {i < 11 && width >= 850 && (
+                {i < 11 && (
                   <Text
                     x={bar.x + bar.width / 2}
                     y={bar.y + bar.height - 80}
-                    angle={315}
+                    angle={width > 850 ? 315 : 290}
                     style={{
-                      opacity: bar.key === active || !active ? 1 : 0.5
+                      opacity: bar.key === active || !active ? 1 : 0.5,
+                      fontSize:
+                        width < 850 && width > 575 ? 14 : width < 575 ? 12 : 16
                     }}
                     textAnchor="end"
                     fill={bar.color}

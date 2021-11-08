@@ -3,7 +3,12 @@ import Select from "react-select"
 import _ from "lodash"
 import { Group } from "@visx/group"
 import { scaleLinear, scaleOrdinal } from "@visx/scale"
-import { withTooltip, Tooltip, defaultStyles } from "@visx/tooltip"
+import {
+  withTooltip,
+  Tooltip,
+  defaultStyles,
+  TooltipWithBounds
+} from "@visx/tooltip"
 import allMagicSeasons from "./data-processing/all-years.json"
 import ParentSize from "@visx/responsive/lib/components/ParentSize"
 import MainCategoryGraph from "./MainCategoryGraph"
@@ -196,7 +201,8 @@ const MagicBySeason = ({
                   </Group>
                 </svg>
                 {tooltipOpen && tooltipData && (
-                  <Tooltip
+                  <TooltipWithBounds
+                    key={Math.random()}
                     top={tooltipTop}
                     left={tooltipLeft}
                     style={tooltipStyles}
@@ -219,7 +225,7 @@ const MagicBySeason = ({
                         {"%"}
                       </small>
                     </div>
-                  </Tooltip>
+                  </TooltipWithBounds>
                 )}
               </>
             )
