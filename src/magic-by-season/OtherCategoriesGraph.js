@@ -1,9 +1,8 @@
 import React from "react"
 import { BarStackHorizontal } from "@visx/shape"
-import { AxisBottom, AxisLeft } from "@visx/axis"
+import { AxisLeft } from "@visx/axis"
 import { localPoint } from "@visx/event"
 import { scaleBand } from "@visx/scale"
-import Text from "@visx/text/lib/Text"
 
 const OtherCategoriesGraph = ({
   data,
