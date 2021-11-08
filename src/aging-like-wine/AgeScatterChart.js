@@ -6,7 +6,8 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip
+  Tooltip,
+  ResponsiveContainer
 } from "recharts"
 
 const CustomTooltip = props => (
@@ -56,28 +57,32 @@ const CustomTooltip = props => (
 
 export const AgeScatterChart = () => {
   return (
-    <ScatterChart width={750} height={500}>
-      <CartesianGrid />
-      <XAxis
-        type="number"
-        dataKey="Age"
-        name="Age"
-        domain={[31, 35]}
-        label={{ value: "Age", position: "insideBottom", offset: 0 }}
-        height={45}
-      />
-      <YAxis
-        type="number"
-        dataKey="PTS"
-        name="PTS"
-        domain={[10, 30]}
-        label={{ value: "PPG", angle: -90, position: "insideLeft" }}
-      />
-      <Tooltip
-        cursor={{ strokeDasharray: "3 3" }}
-        content={<CustomTooltip />}
-      />
-      <Scatter data={data} fill="#006BB6" />
-    </ScatterChart>
+    <div style={{ width: "100%", maxWidth: 750 }}>
+      <ResponsiveContainer height={500} width="100%">
+        <ScatterChart width={750} height={500}>
+          <CartesianGrid />
+          <XAxis
+            type="number"
+            dataKey="Age"
+            name="Age"
+            domain={[31, 35]}
+            label={{ value: "Age", position: "insideBottom", offset: 0 }}
+            height={45}
+          />
+          <YAxis
+            type="number"
+            dataKey="PTS"
+            name="PTS"
+            domain={[10, 30]}
+            label={{ value: "PPG", angle: -90, position: "insideLeft" }}
+          />
+          <Tooltip
+            cursor={{ strokeDasharray: "3 3" }}
+            content={<CustomTooltip />}
+          />
+          <Scatter data={data} fill="#006BB6" />
+        </ScatterChart>
+      </ResponsiveContainer>
+    </div>
   )
 }

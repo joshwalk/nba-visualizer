@@ -34,8 +34,12 @@ a {
 }
 
 h1 {
-  font-size: 72px;
+  font-size: 58px;
   font-weight: bold;
+}
+
+h1.aging {
+  font-size: 58px;
   background: linear-gradient(to right, #006BB6 0%, #ED174C 100%); 
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -55,6 +59,7 @@ h2 {
   text-transform: uppercase;
   color: #006BB6;
   font-size: 16px;
+  line-height: 1.5;
 }
 
 h2.magic {
@@ -66,12 +71,14 @@ h2.magic {
   h1.magic {
     font-size: 32px;
   }
-  h2.magic {
+  h2 {
     font-size: 14px;
+    padding: 0 5px;
+  }
+  h1.aging {
+    font-size: 32px;
   }
 }
-
-
 
 label {
   font-size: 15px;

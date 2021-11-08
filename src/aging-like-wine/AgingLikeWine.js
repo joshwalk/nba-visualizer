@@ -7,12 +7,12 @@ const AgingLikeWine = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Aging Like Wine</h1>
+        <h1 className="aging">Aging Like Wine</h1>
         <h2>An Analysis of NBA Players' Peak PPG Seasons</h2>
         <img
           src={JJ}
           alt="JJ Redick"
-          style={{ width: 750, marginTop: "2em" }}
+          style={{ maxWidth: 750, marginTop: "2em", width: "100%" }}
         />
       </header>
       <div className="text-body">

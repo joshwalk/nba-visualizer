@@ -3,12 +3,7 @@ import Select from "react-select"
 import _ from "lodash"
 import { Group } from "@visx/group"
 import { scaleLinear, scaleOrdinal } from "@visx/scale"
-import {
-  withTooltip,
-  Tooltip,
-  defaultStyles,
-  TooltipWithBounds
-} from "@visx/tooltip"
+import { withTooltip, defaultStyles, TooltipWithBounds } from "@visx/tooltip"
 import allMagicSeasons from "./data-processing/all-years.json"
 import ParentSize from "@visx/responsive/lib/components/ParentSize"
 import MainCategoryGraph from "./MainCategoryGraph"

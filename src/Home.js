@@ -23,7 +23,7 @@ const Home = () => {
       </div>
       <div style={{ textAlign: "center", marginTop: 100 }}>
         <Link to="/aging-like-wine">
-          <h1 style={{ fontSize: 58, lineHeight: 1.1, cursor: "pointer" }}>
+          <h1 className="aging" style={{ lineHeight: 1.1, cursor: "pointer" }}>
             Aging Like Wine &#8594;
           </h1>
         </Link>
