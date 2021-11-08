@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/nba-visualizer/static/css/main.b3371ef9.chunk.css",
-    "main.js": "/nba-visualizer/static/js/main.57cd2510.chunk.js",
-    "main.js.map": "/nba-visualizer/static/js/main.57cd2510.chunk.js.map",
-    "runtime-main.js": "/nba-visualizer/static/js/runtime-main.b3ef4fba.js",
-    "runtime-main.js.map": "/nba-visualizer/static/js/runtime-main.b3ef4fba.js.map",
-    "static/js/2.4f529a74.chunk.js": "/nba-visualizer/static/js/2.4f529a74.chunk.js",
-    "static/js/2.4f529a74.chunk.js.map": "/nba-visualizer/static/js/2.4f529a74.chunk.js.map",
-    "static/js/3.e70aba2a.chunk.js": "/nba-visualizer/static/js/3.e70aba2a.chunk.js",
-    "static/js/3.e70aba2a.chunk.js.map": "/nba-visualizer/static/js/3.e70aba2a.chunk.js.map",
+    "main.css": "/nba-visualizer/static/css/main.7bbe3eb6.chunk.css",
+    "main.js": "/nba-visualizer/static/js/main.6f7b57a9.chunk.js",
+    "main.js.map": "/nba-visualizer/static/js/main.6f7b57a9.chunk.js.map",
+    "runtime-main.js": "/nba-visualizer/static/js/runtime-main.82198878.js",
+    "runtime-main.js.map": "/nba-visualizer/static/js/runtime-main.82198878.js.map",
+    "static/js/2.52a58660.chunk.js": "/nba-visualizer/static/js/2.52a58660.chunk.js",
+    "static/js/2.52a58660.chunk.js.map": "/nba-visualizer/static/js/2.52a58660.chunk.js.map",
+    "static/js/3.06924eae.chunk.js": "/nba-visualizer/static/js/3.06924eae.chunk.js",
+    "static/js/3.06924eae.chunk.js.map": "/nba-visualizer/static/js/3.06924eae.chunk.js.map",
     "index.html": "/nba-visualizer/index.html",
-    "static/css/main.b3371ef9.chunk.css.map": "/nba-visualizer/static/css/main.b3371ef9.chunk.css.map",
-    "static/js/2.4f529a74.chunk.js.LICENSE.txt": "/nba-visualizer/static/js/2.4f529a74.chunk.js.LICENSE.txt",
+    "static/css/main.7bbe3eb6.chunk.css.map": "/nba-visualizer/static/css/main.7bbe3eb6.chunk.css.map",
+    "static/js/2.52a58660.chunk.js.LICENSE.txt": "/nba-visualizer/static/js/2.52a58660.chunk.js.LICENSE.txt",
     "static/media/jj3.8754e968.jpg": "/nba-visualizer/static/media/jj3.8754e968.jpg",
-    "static/media/logo2.0030b413.png": "/nba-visualizer/static/media/logo2.0030b413.png"
+    "static/media/jw-logo.0030b413.png": "/nba-visualizer/static/media/jw-logo.0030b413.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.b3ef4fba.js",
-    "static/js/2.4f529a74.chunk.js",
-    "static/css/main.b3371ef9.chunk.css",
-    "static/js/main.57cd2510.chunk.js"
+    "static/js/runtime-main.82198878.js",
+    "static/js/2.52a58660.chunk.js",
+    "static/css/main.7bbe3eb6.chunk.css",
+    "static/js/main.6f7b57a9.chunk.js"
   ]
 }
